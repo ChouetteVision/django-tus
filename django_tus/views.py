@@ -78,6 +78,9 @@ class TusUpload(View):
 
         tus_file = TusFile.get_tusfile_or_404(str(resource_id))
 
+        if tus_file is None:
+            return TusResponse(status=404)
+
         return TusResponse(status=200,
                            extra_headers={
                                'Upload-Offset': tus_file.offset,
@@ -86,6 +89,10 @@ class TusUpload(View):
     def patch(self, request, resource_id, *args, **kwargs):
 
         tus_file = TusFile.get_tusfile_or_404(str(resource_id))
+
+        if tus_file is None:
+            return TusResponse(status=404)
+
         chunk = TusChunk(request)
 
         if not tus_file.is_valid():

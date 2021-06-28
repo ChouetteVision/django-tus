@@ -66,7 +66,7 @@ class TusFile:
         if TusFile.resource_exists(str(resource_id)):
             return TusFile(resource_id)
         else:
-            raise TusResponse(status=404)
+            return None
 
     @staticmethod
     def resource_exists(resource_id: str):
